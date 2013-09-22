@@ -1,0 +1,8 @@
+name: elastic_search_client
+author: Wolf Bauer
+description: Simple client for elasticsearch.
+dependencies:
+  json_object: any
+  logging: any
+dev_dependencies:
+  unittest: any
