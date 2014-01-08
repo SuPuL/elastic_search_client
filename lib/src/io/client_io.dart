@@ -1,51 +1,61 @@
 part of elastic_search_client_io;
 
+// Logger for the whole lib
+final _io_logger = new Logger('elastic_search_client.io');
+
 class HttpChannel extends Channel {
-  Future<JsonObject> open(String method, Uri uri, [Object postData]) {   
+  
+  HttpClient _client;
+  
+  Future<String> open(String method, Uri uri, [String data = '']) {
     return this._getClient().openUrl(method, uri).then(
-      (request) => _onRequest(request, postData)
+      (request) => _onRequest(request, data)
     ).then(
       (response) => _onResponse(response)    
     );
   }
   
   HttpClient _getClient() {
-    return new HttpClient();
+    if (null == this._client) {
+      this._client = new HttpClient();
+    }
+    
+    return this._client;
   }
 
-  Future<HttpClientResponse> _onRequest(HttpClientRequest request, [Object postData]) {    
+  Future<HttpClientResponse> _onRequest(
+      HttpClientRequest request, 
+      [String data = '']
+  ) {
     request.headers.contentType = new ContentType(
       'application', 
       'json', 
-      charset : Encoding.UTF_8.name
+      charset : UTF8.name
     );
     
-    var message = 'Send json- ' + request.method + ' request to: ' + 
+    var message = 'Send json-' + request.method + ' request to: ' + 
         request.uri.toString();
-    Logger.root.finer(message);
+    _io_logger.finer(message);
+    _io_logger.finest(
+        'HTTP chunking: ' + request.headers.chunkedTransferEncoding.toString()
+    );
     
-    if (postData != null) {
-//      var jsonData = JSON.stringify(postData);
-//      Logger.root.finer('Use data: ' + jsonData);
-//      request.contentLength = jsonData.length;
-//      request.write(jsonData);
-    }
-    else {
+    if (data.isNotEmpty) {
+      _io_logger.finer('Use data: ' + data);
+      request.contentLength = data.length;
+      request.write(data);
+    } else {
       request.contentLength = 0;
     }
-    
 
-    
     return request.close();
   }
   
-  Future<JsonObject> _onResponse(HttpClientResponse response) {
+  Future<String> _onResponse(HttpClientResponse response) {
     var message = 'Transform response to json. Status: ' + 
         response.statusCode.toString();
-    Logger.root.finer(message);
+    _io_logger.finer(message);
     
-    return response.transform(new convert.Utf8Decoder()).join('').then(
-        (jsonString) => new JsonObject.fromJsonString(jsonString)
-    );
+    return response.transform(new Utf8Decoder()).join('');
   }
 }

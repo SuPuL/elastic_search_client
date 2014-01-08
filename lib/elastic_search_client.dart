@@ -1,6 +1,7 @@
 library elastic_search_client;
 
 import 'dart:async';
+import 'dart:mirrors';
 import 'package:json_object/json_object.dart';
 import 'package:logging/logging.dart';
 
@@ -9,9 +10,14 @@ export 'package:logging/logging.dart';
 export 'package:json_object/json_object.dart';
 
 part 'src/client.dart';
-part 'src/request/request.dart';
 
-part 'src/request/indices/createIndex.dart';
-part 'src/request/indices/deleteIndex.dart';
-part 'src/request/indices/stats.dart';
+part 'src/action/request.dart';
+part 'src/action/response.dart';
+
+part 'src/action/indices/createIndex.dart';
+part 'src/action/indices/deleteIndex.dart';
+part 'src/action/indices/status.dart';
+part 'src/action/indices/stats.dart';
+
+part 'src/action/indices/transport/settings.dart';
 

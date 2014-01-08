@@ -4,24 +4,40 @@ packages:
   json_object:
     description: json_object
     source: hosted
-    version: "1.0.16"
+    version: "1.0.18+2"
+  log4dart:
+    description: log4dart
+    source: hosted
+    version: "1.4.11"
   logging:
     description: logging
     source: hosted
-    version: "0.6.19"
+    version: "0.8.10+3"
   meta:
     description: meta
     source: hosted
-    version: "0.6.17+2"
+    version: "0.8.8"
   path:
     description: path
     source: hosted
-    version: "0.6.17+2"
+    version: "0.8.10+3"
+  sprintf:
+    description: sprintf
+    source: hosted
+    version: "1.0.8"
   stack_trace:
     description: stack_trace
     source: hosted
-    version: "0.6.17+2"
+    version: "0.8.10+3"
+  test_toolkit:
+    description: test_toolkit
+    source: hosted
+    version: "0.1.1"
   unittest:
     description: unittest
     source: hosted
-    version: "0.6.17+2"
+    version: "0.8.10+3"
+  unmodifiable_collection:
+    description: unmodifiable_collection
+    source: hosted
+    version: "0.8.10+3"

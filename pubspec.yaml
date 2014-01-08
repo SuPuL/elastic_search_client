@@ -4,5 +4,6 @@ description: Simple client for elasticsearch.
 dependencies:
   json_object: any
   logging: any
+  test_toolkit: any
 dev_dependencies:
   unittest: any
